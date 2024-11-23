@@ -1,16 +1,12 @@
-## Hi there 👋
+- 👋 Hi, I’m Chris
+- 🌱 I’m interested in Edge Computing 
+- 🏫 I’m currently study at SJTU
+- 📫 My email: a25505597703@gmail.com
+---
+欢迎访问我的项目：  
+A motion imagination EEG signal classification algorithm based on transfer learning, undergraduate graduation project at HIT.
+## 💠 [DANN](https://github.com/kongfuguagua/DANN_EEG) [Paper](https://ieeexplore.ieee.org/document/10241474/)
+一个基于迁移学习的运动想象脑电信号分类算法，HIT的本科毕设.
 
-<!--
-**kongfuguagua/kongfuguagua** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+A GUI earthquake map that displays real-time earthquakes worldwide and calculates their potential impact on cities.
 
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
