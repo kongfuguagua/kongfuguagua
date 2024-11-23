@@ -6,5 +6,6 @@
 欢迎访问我的项目：  
 ## 💠 [DANN](https://github.com/kongfuguagua/DANN_EEG)/[Paper](https://ieeexplore.ieee.org/document/10241474/)
 一个基于迁移学习的运动想象脑电信号分类算法，HIT的本科毕设.
+
 A motion imagination EEG signal classification algorithm based on transfer learning, undergraduate graduation project at HIT.
 
