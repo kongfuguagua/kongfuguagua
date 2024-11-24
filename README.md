@@ -9,3 +9,7 @@
 
 A motion imagination EEG signal classification algorithm based on transfer learning, undergraduate graduation project at HIT.
 
+## 💠 [ECPAD](https://github.com/kongfuguagua/Edge-Computing-Based-Flexible-Production-Line-Architecture-Design)/[Paper]()
+一个基于边缘计算的柔性生产线架构设计
+
+Edge Computing Based Flexible Production Line Architecture Design.
