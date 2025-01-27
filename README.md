@@ -14,7 +14,7 @@ A motion imagination EEG signal classification algorithm based on transfer learn
 
 Edge Computing Based Flexible Production Line Architecture Design.Research on microservice orchestration algorithms,for a paper and a self-built experimental platform.
 
-## 💠 [PV-MLLM]()/[Paper]() COMING!
-一个基于边缘计算的柔性生产线架构设计，研究微服务编排算法，小论文和自建实验平台。
+## 💠 [PV-MLLM](https://github.com/kongfuguagua/PV-RAG)/[Paper]() COMING!
+一个基于QWEN2-VL-7B的RAG系统，实现单一样本的光伏故障检测，并保证模型的泛化性。
 
-Edge Computing Based Flexible Production Line Architecture Design.Research on microservice orchestration algorithms,for a paper and a self-built experimental platform.
+A RAG system based on QWEN2-VL-7B to achieve single-sample photovoltaic fault detection and ensure the generalization of the model.
