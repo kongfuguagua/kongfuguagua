@@ -34,11 +34,11 @@ Bring electrical-system simulations closer to measured behavior through iterativ
 
 Learn action-conditioned device dynamics to support control across different air-conditioner models. World-model rollouts and receding-horizon planning connect predictions to energy-aware control actions.
 
-#### SolarJEPA · Multimodal Forecasting
+<!-- #### SolarJEPA · Multimodal Forecasting
 
 ![SolarJEPA concept animation: synthetic historical cloud observations and time-series windows align across a time lag to support future solar forecasting.](assets/research/solarjepa.gif)
 
-Learn from sky imagery and time-series observations with multimodal self-supervision. Transition alignment links cloud dynamics to subsequent solar-energy changes for forecasting.
+Learn from sky imagery and time-series observations with multimodal self-supervision. Transition alignment links cloud dynamics to subsequent solar-energy changes for forecasting. -->
 
 ## Engineering Foundations
 
