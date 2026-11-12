@@ -4,13 +4,7 @@ __pycache__/
 *.py[cod]
 
 # Superseded illustrations retained locally, outside the published profile.
-/assets/loop-*.svg
-/assets/research/*-light.svg
-/assets/research/*-dark.svg
-/assets/research/ada.gif
-/assets/research/soa.gif
-/assets/research/hacwm.gif
-/assets/research/solarjepa*
+# /assets/research/solarjepa*
 
 # Earlier single-panel renderers are not part of the active build.
 /scripts/research_agentic.py

@@ -1,6 +1,6 @@
 # Chris · Mengqi Han
 
-# ![Illustrated portrait of Chris Mengqi Han](assets/profile-avatar-v2.png)
+<!-- # ![Illustrated portrait of Chris Mengqi Han](assets/profile-avatar-v2.png) -->
 
 **Building agents and world models for physical systems.**  
 Ph.D. student at **Shanghai Jiao Tong University**.
