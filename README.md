@@ -1,63 +1,91 @@
 # Chris · Mengqi Han
 
-**Building agents and world models for real-world systems.**
+# ![Illustrated portrait of Chris Mengqi Han](assets/profile-avatar-v2.png)
 
-Ph.D. student at **Shanghai Jiao Tong University**. I work on agents that turn intent into validated actions, and world models that connect observations, prediction, and control.
+**Building agents and world models for physical systems.**  
+Ph.D. student at **Shanghai Jiao Tong University**.
 
-[Email](mailto:a25505597703@gmail.com) · [Research](#research) · [Engineering](#engineering-foundations) · [Code](#earlier-work)
+I work on agents that turn intent into validated actions,  
+and world models that connect observations, prediction, and control.
 
-![A feedback loop connecting Observe, Model, Plan, and Act, with feedback from the physical system informing the next observation.](assets/loop-light.svg)
+[Research](#research)  ·  [Engineering](#engineering-foundations)  ·  [Code](#earlier-work)  ·  [Email](mailto:a25505597703@gmail.com)
 
 ## Research
 
-Two connected directions: **agents that reason and act**, and **world models that predict and guide control**. The animations below illustrate the methods; all depicted signals and states are synthetic.
+Three projects on **reliable agentic decision-making** and **transferable world models** for physical systems. Each pair shows the system on the left and the method's mechanics on the right. Click either panel for the full-size animation.
 
-### Agentic Systems
+### 01 · ADA — Agile Dispatch Agent
 
-#### ADA · Agentic Dispatch
+**Problem.** When an end-to-end dispatch agent fails, was the problem formulated incorrectly, was the solver unsuitable, or was the feedback misleading? ADA addresses this **failure-attribution ambiguity** as grid conditions and constraints change.
 
-![ADA concept animation: a synthetic grid state passes through tools, solving, and validation; fast decisions and slower knowledge updates form two feedback loops.](assets/research/ada.gif)
+**Core method.**
 
-Turn power-system dispatch intent into mathematical models, tool-assisted solving, and physically validated actions. Feedback connects fast decision adaptation with slower updates to modeling knowledge.
+- **Observe and formulate:** an MCTS Planner actively queries tools to augment the grid state and construct objectives and constraints; problem–algorithm alignment selects an appropriate solver.
+- **Learn at two speeds:** fast action knowledge adapts tool-selection priors, while slower task knowledge rebuilds objectives, constraints, and solver preferences from accumulated trajectories.
+- **Separate execution from reflection:** a synchronous physical-feasibility gate controls action admission; semantic judging and knowledge updates run asynchronously.
 
-#### SOA · Simulation Refinement
+**Validation.** Four L2RPN simulation settings cover ambiguous redispatch, renewable uncertainty, extreme disturbances, and storage coordination. Ablations compare knowledge-update schedules; the theory characterizes local knowledge tracking under explicit stability assumptions.
 
-![SOA concept animation: synthetic reference and simulation signals illustrate iterative structural and parameter refinement guided by LLM proposals, fuzzy rules, and simulation feedback.](assets/research/soa.gif)
+| Grid response | Tool search & knowledge adaptation |
+| :---: | :---: |
+| [![Illustrative grid response: load changes alter line loading, and redispatch routes power through the network.](assets/research/previews/ada-effect.gif)](assets/research/ada-effect.gif) | [![Illustrative method mechanics: candidate searches meet physical limits while slower knowledge updates accumulate experience.](assets/research/previews/ada-mechanism.gif)](assets/research/ada-mechanism.gif) |
 
-Bring electrical-system simulations closer to measured behavior through iterative structural and parameter refinement. LLM proposals, fuzzy-rule guidance, and simulation feedback connect reasoning with physically grounded updates.
+*Visualizations: schematic grid behavior and search mechanics, not an L2RPN experiment replay.*
 
-### World Models
+---
 
-#### HacWM · World Models for Control
+### 02 · SOA — Bilevel Simulation Refinement
 
-![HacWM concept animation: roll out candidate trajectories, select a plan, execute only its first action, then observe the next state and replan. All trajectories are synthetic.](assets/research/hacwm.gif)
+**Problem.** Electrical simulators can diverge from real systems when **circuit structure and component parameters change together**, especially with incomplete measurements. Fitting parameters within a fixed topology cannot resolve every mismatch.
 
-Learn action-conditioned device dynamics to support control across different air-conditioner models. World-model rollouts and receding-horizon planning connect predictions to energy-aware control actions.
+**Core method.** SOA couples two optimization levels: correcting the simulator and learning to propose better corrections.
 
-<!-- #### SolarJEPA · Multimodal Forecasting
+- **Upper level — improve the simulation model:** a domain-initialized LLM proposes structural and parametric candidates. A Takagi–Sugeno fuzzy system adjusts the weights on simulation error and modeling entropy in the ranking objective; elite models enter a monotonic-stack experience buffer.
+- **Lower level — improve the proposal policy:** PPO learns from buffered models using output-format, reasoning-process, and physical-mechanism rewards, including circuit-law residuals.
 
-![SolarJEPA concept animation: synthetic historical cloud observations and time-series windows align across a time lag to support future solar forecasting.](assets/research/solarjepa.gif)
+**Validation.** Evaluation combines measured photovoltaic I–V–P data, PV structural-mismatch simulations, and Ngspice analog-circuit benchmarks. Ablations examine fuzzy selection, experience retention, and reward design.
 
-Learn from sky imagery and time-series observations with multimodal self-supervision. Transition alignment links cloud dynamics to subsequent solar-energy changes for forecasting. -->
+| Photovoltaic response matching | Model candidates & fuzzy ranking |
+| :---: | :---: |
+| [![Physics-based illustration: the I–V response of a candidate photovoltaic model approaches a simulated reference.](assets/research/previews/soa-effect.gif)](assets/research/soa-effect.gif) | [![Illustrative equivalent-circuit candidates and fuzzy weighting; these explain model refinement rather than replaying a measured optimization run.](assets/research/previews/soa-mechanism.gif)](assets/research/soa-mechanism.gif) |
+
+*Visualizations: physics-based PV illustrations, not recorded SOA optimization results.*
+
+---
+
+### 03 · HacWM — Cross-Model Air-Conditioner Control
+
+**Problem.** Different actuator characteristics and thermal delays make air-conditioning controllers difficult to transfer across devices, while online planning must work within a limited compute budget.
+
+**Core method.** HacWM combines a transferable predictor with **physics-guided, low-dimensional trajectory sampling**.
+
+- **Shared dynamics:** JEPA-style multi-step latent prediction uses device-balanced batches and nested random projections across latent and device axes to regularize cross-device representations.
+- **Physical outputs:** a physics-guided decoder combines actuator-response priors with learned corrections to predict temperature, cooling, and electricity use.
+- **Coordinated planning:** sample coupled compressor, expansion-valve, and fan trajectories; rank rollouts by efficiency, temperature regulation, and action continuity. Execute a short action prefix, observe, and replan, with learned parameters frozen across devices.
+
+**Validation.** Closed-loop evaluation spans two simulators and a held-out real air conditioner under multiple operating conditions. Open-loop prediction and fixed-budget planning are evaluated separately.
+
+| Air-conditioning system & recorded trace | Coordinated rollouts & replanning |
+| :---: | :---: |
+| [![Schematic indoor and outdoor AC units with a recorded historical temperature trace; the deployed model version is not established.](assets/research/previews/hacwm-effect.gif)](assets/research/hacwm-effect.gif) | [![Illustrative world-model planning: compare candidate futures, execute a short action prefix, and advance the prediction horizon after observing the next state.](assets/research/previews/hacwm-mechanism.gif)](assets/research/hacwm-mechanism.gif) |
+
+*Visualizations: the left panel includes a recorded AC run of unspecified model version; the room, airflow, and right-hand rollouts are schematic. The trace is separate from the paper's evaluation evidence.*
 
 ## Engineering Foundations
 
 - **Agent orchestration & validation** — Connect intent, tools, solvers, and feedback into verifiable workflows. *ADA · SOA*
-- **Prediction & control** — Connect multimodal observations, learned dynamics, and planning to decisions. *SolarJEPA · HacWM*
+- **Prediction & control** — Connect device observations, learned dynamics, and planning to control actions. *HacWM*
 - **Cloud–edge systems** — Connect microservice orchestration with an edge-computing testbed for flexible production. *ECPAD*
 
 ## Earlier Work
 
-**ECPAD** — Edge-computing architecture and microservice orchestration for a flexible production line, with a self-built experimental platform.
-
-[Code](https://github.com/kongfuguagua/ECPAD) · [Paper](https://ieeexplore.ieee.org/document/10774337)
-
-**DANN** — Transfer learning for motor-imagery EEG classification; my undergraduate thesis project at Harbin Institute of Technology.
-
-[Code](https://github.com/kongfuguagua/DANN_EEG) · [Paper](https://ieeexplore.ieee.org/document/10241474/)
+| Project | Work | Explore |
+| :--- | :--- | :--- |
+| **ECPAD** | Edge-computing architecture and microservice orchestration for a flexible production line, with a self-built experimental platform. | [Code](https://github.com/kongfuguagua/ECPAD) · [Paper](https://ieeexplore.ieee.org/document/10774337) |
+| **DANN** | Transfer learning for motor-imagery EEG classification; my undergraduate thesis project at Harbin Institute of Technology. | [Code](https://github.com/kongfuguagua/DANN_EEG) · [Paper](https://ieeexplore.ieee.org/document/10241474/) |
 
 ## Contact
 
 Let's talk about agentic systems, world models, and AI engineering for physical systems.
 
-[a25505597703@gmail.com](mailto:a25505597703@gmail.com) · [GitHub](https://github.com/kongfuguagua)
+[Email](mailto:a25505597703@gmail.com)  ·  [GitHub](https://github.com/kongfuguagua)
